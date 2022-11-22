@@ -48,4 +48,20 @@ body.wrong {
   --hue: var(--hue-neutral);
   border: 1px solid hsl(var(--hue), 100%, 30%);
   background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 5px;
+  padding: 10px 20px;
+  color: white;
+  outline: none;
+}
+
+.btn:hover {
+  border-color: black;;
+}
+
+.btn.correct {
+  --hue: var(--hue-correct);
+  color: black;
+}
+.btn.wrong {
+  --hue: var(--hue-wrong);
 }
