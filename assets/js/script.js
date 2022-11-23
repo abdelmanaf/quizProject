@@ -7,6 +7,7 @@ function startGame(){
   console.log('Game started');
   startButton.classList.add('hide')
   questionContainerElement.classList.remove('hide')
+  setNextQuestion()
 }
 
 function setNextQuestion(){
