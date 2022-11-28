@@ -1,5 +1,7 @@
 const startButton = document.getElementById('start-btn');
 const questionContainerElement = document.getElementById('question-container');
+const questionElenent = document.getElementById('question');
+const answerButtons = document.getElementById('answer-buttons');
 
 startButton.addEventListener('click', startGame);
 
@@ -30,7 +32,20 @@ function startGame(){
 }
 
 function setNextQuestion(){
+  showQuestion(shuffledQuestions[currentQuestionIndex])
+}
 
+function showQuestion(question){
+  questionElenent.innerHTML = question.question
+  question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.textContent = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+  })
 }
 
 function selectAnswer(){
