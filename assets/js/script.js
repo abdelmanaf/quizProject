@@ -4,7 +4,17 @@ const questionContainerElement = document.getElementById('question-container');
 const questionElenent = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
 
+
+// display questions
+let shuffledQuestions
+let currentQuestionIndex
+
+
 startButton.addEventListener('click', startGame);
+nextButton.addEventListener('click', () => {
+  currentQuestionIndex++
+  setNextQuestion()
+});
 
 // questions lists
 const questions = [
@@ -16,12 +26,42 @@ const questions = [
       {text: '1996', correct: false},
       {text: '1993', correct: false}
     ]
-  }
+  },
+  {
+    question: 'Who is the president of United State?',
+    answers: [
+      {text: 'Donald Trump', correct: false},
+      {text: 'Clinton', correct: false},
+      {text: 'Joe Biden', correct: true},
+      {text: 'Barack Obama', correct: false}
+    ]
+  },
+  {
+    question: 'What is CSS stand for?',
+    answers: [
+      {text: 'Cascade Style Sheets', correct: false},
+      {text: 'Cascading Sheets Style', correct: false},
+      {text: 'Cascading Styling Sheets', correct: false},
+      {text: 'Cascading Style Sheets', correct: true}
+    ]
+  },
+  {
+    question: 'Do you like Ice cream?',
+    answers: [
+      {text: 'Yes', correct: true},
+      {text: 'No', correct: true}
+    ]
+  },
+  {
+    question: 'What is the greatest movie ever?',
+    answers: [
+      {text: 'Black Pather', correct: true},
+      {text: 'Black Adam', correct: true},
+      {text: 'Jumanji', correct: true},
+      {text: '365', correct: true}
+    ]
+  },
 ]
-
-// display questions
-let shuffledQuestions
-let currentQuestionIndex
 
 
 function startGame(){
@@ -41,7 +81,7 @@ function showQuestion(question){
   questionElenent.innerHTML = question.question
   question.answers.forEach(answer => {
     const button = document.createElement('button')
-    button.textContent = answer.text
+    button.innerText = answer.text
     button.classList.add('btn')
     if (answer.correct) {
       button.dataset.correct = answer.correct
@@ -52,6 +92,7 @@ function showQuestion(question){
 }
 
 function resetState(){
+  clearStatusClass(document.body)
   nextButton.classList.add('hide')
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild)
@@ -65,6 +106,12 @@ function selectAnswer(e){
   Array.from(answerButtons.children).forEach(button => {
     setStatusClass(button, button.dataset.correct)
   })
+  if (shuffledQuestions.length > currentQuestionIndex + 1){
+    nextButton.classList.remove('hide')
+  } else {
+    startButton.innerText = 'Restart'
+    startButton.classList.remove('hide')
+  }
 }
 
 function setStatusClass(element, correct){
@@ -76,6 +123,7 @@ function setStatusClass(element, correct){
   }
 }
 
-function clearStatusClass(){
-
+function clearStatusClass(element){
+  element.classList.remove('correct')
+  element.classList.remove('wrong')
 }
